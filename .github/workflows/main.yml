@@ -1,0 +1,71 @@
+name: GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout libscript
+        path: libscript
+        uses: actions/checkout@v4
+        with:
+          repository: SamuelMarks/libscript
+
+      - name: Checkout old verman-www
+        uses: actions/checkout@v4
+        path: verman-www
+        with:
+          repository: verman-io/verman-www
+
+      - name: Checkout this repo
+        path: verman-tui-www
+        uses: actions/checkout@v4
+
+      - name: Use Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Prepare docs from libscript
+        env:
+          LIBSCRIPT_DOCS_DIR: './docs/latest'
+          LIBSCRIPT_ASSETS_DIR: '/assets'
+        run: ./generate_html_docs.sh
+        working-directory: ./libscript
+
+      - name: Prepare docs from this repo
+        run: npm ci
+        working-directory: ./verman-tui-www
+
+      - name: Prepare and deploy
+        env:
+          GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
+          DIST: 'dist/verman-www'
+          TARGET: 'verman-io/verman.github.io'
+          CNAME: 'verman.io'
+        run: |
+          npm i -g npm
+          npm i -g @angular/cli typescript angular-cli-ghpages
+          cd "$GITHUB_WORKSPACE"'/'
+          ng add --skip-confirmation angular-cli-ghpages
+          npm ci
+          MSG="$(git show -s --format='%s' "$GITHUB_SHA")"
+          email_author="$(git log -1 --pretty=format:'%an <%ce>')"
+          author="${email_author% *}"
+          git config --global user.name "$author"
+          email="${email_author#*<}"; email="${email::-1}"
+          git config --global user.email "$email"
+          ng build --configuration production --base-href 'https://'"$CNAME"
+          head -n3 README.md > "$DIST"'/README.md'
+          mv "$DIST"'/browser'/* "$DIST"'/verman'
+          cp -r "$GITHUB_WORKSPACE"'/libscript/docs' "$DIST"
+          cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/src' "$DIST"
+          mkdir "$DIST"'/assets'
+          cp "$GITHUB_WORKSPACE"'/verman-tui-www/src/node_modules/tuicss/dist/'* "$DIST"'/assets'
+          npx angular-cli-ghpages --dir="$DIST" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent

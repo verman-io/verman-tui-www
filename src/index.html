@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" class="tui-bg-blue-black">
+
+<head>
+    <meta charset="UTF-8">
+    <title>verMan.io &ndash; faster deploys: natively</title>
+    <!-- https://github.com/vinibiavatti1/TuiCss is MIT licensed and used for the theme -->
+    <script src="/assets/tuicss.min.js" type="application/javascript"></script>
+    <link rel="stylesheet" href="/assets/tuicss.min.css" type="text/css">
+    <link rel="stylesheet" href="./styles.css" type="text/css">
+</head>
+
+<body class="tui-bg-blue-black relative">
+<!-- Sidenav -->
+<nav class="tui-sidenav absolute">
+    <ul>
+        <li>
+            <a href="#!">
+                <span class="red-168-text">P</span>rofile
+                <span class="tui-shortcut">ctrl+p</span>
+            </a>
+        </li>
+        <li>
+            <a href="#!">
+                <span class="red-168-text">S</span>earch
+                <span class="tui-shortcut">ctrl+s</span>
+            </a>
+        </li>
+        <li>
+            <a href="#!">
+                S<span class="red-168-text">t</span>ory
+                <span class="tui-shortcut">ctrl+t</span>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Navbar -->
+<nav class="tui-nav">
+    <span class="tui-datetime" data-format="h:m:s a"></span>
+    <ul>
+        <li class="tui-sidenav-button red-168-text">≡</li>
+        <li class="tui-dropdown hide-on-med-and-down">
+            <span class="red-168-text">D</span>ocumentation
+            <div class="tui-dropdown-content">
+                <ul>
+                    <li>
+                        <a href="#!">
+                            Synta<span class="red-168-text">x</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!">
+                            <span class="red-168-text">W</span>hitepaper
+                        </a>
+                    </li>
+                    <div class="tui-black-divider"></div>
+                    <li class="tui-dropdown block">
+                        <span class="right">►</span>
+                        <span class="red-168-text">P</span>orts
+                        <div class="tui-dropdown-content">
+                            <ul>
+                                <li>
+                                    <a href="#!">
+                                        <span class="red-168-text">T</span>oolchains
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!">
+                                        <span class="red-168-text">D</span>atabases
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#!">
+                                        <span class="red-168-text">S</span>ervers
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="tui-dropdown hide-on-med-and-down">
+            <span class="red-168-text">A</span>bout
+            <div class="tui-dropdown-content">
+                <ul>
+                    <li>
+                        <a href="#!">
+                            T<span class="red-168-text">e</span>am
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#!">
+                            W<span class="red-168-text">h</span>y
+                            <span class="tui-shortcut">F4</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- Edit panel -->
+<div class="content container">
+    <div class="row">
+        <div class="col s12 m12 l12 white-text center">
+            <h3>VerMan.io</h3>
+            <hr>
+            Deploy like it's the 1980s 🚀
+        </div>
+    </div>
+
+    <div class="center" style="margin-top: 100px; margin-bottom: 100px">
+        <div class="row">
+            <div class="col s12 m4 l4">
+                <div class="post tui-window">
+                    <fieldset class="tui-fieldset">
+                        <legend>OS support</legend>
+                        Windows<br>
+                        Linux xor Linux (within Docker)<br>
+                        FreeBSD; NetBSD; OpenBSD<br>
+                        SunOS; HP/UX; z/OS<br>
+                        iOS<br>
+                        Android<br>
+                        DOS<br>
+                        OS/360<br>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="post tui-window" style="margin-bottom: 6px; padding-bottom: 0">
+                    <fieldset class="tui-fieldset">
+                        <legend>Why</legend>
+                        Faster deploys: natively.<br>
+                        <hr>
+                        OS/container images for prod; native for dev.<br>
+                    </fieldset>
+                </div>
+                <div class="post tui-window" style="margin-top: 0; padding-top: 0;">
+                    <fieldset class="tui-fieldset">
+                        <legend>License</legend>
+                        Public domain.<br>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="col s12 m4 l4">
+                <div class="post tui-window">
+                    <fieldset class="tui-fieldset">
+                        <legend>Deploy</legend>
+                        Databases<br>
+                        Queues<br>
+                        Lang. toolchains<br>
+                        Lang. runtimes<br>
+                        Reverse proxies<br>
+                        Servers<br>
+                    </fieldset>
+                </div>
+                <button class="tui-button white-255-text">more...</button>
+                <button class="tui-button purple-168 white-255-text">share</button>
+            </div>
+        </div>
+
+        <hr class="white-text">
+
+        <!-- Window textarea -->
+        <div class="info-text">0. write JSON</div>
+        <div class="tui-window">
+            <div class="tui-panel white-168" style="width: 400px; height: 100%">
+                <div class="tui-tabs red-168">
+                    <ul>
+                        <li><a class="tui-tab active" data-tab-content="tab-1-content">Toolchains</a></li>
+                        <li><a class="tui-tab" data-tab-content="tab-2-content">Databases</a></li>
+                        <li><a class="tui-tab" data-tab-content="tab-3-content">Servers</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="tui-tab-content" id="tab-1-content">
+                        <fieldset class="tui-fieldset">
+                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 226px;">{"toolchains": [
+  { "name": "NODEJS",
+    "version": "lts",
+    "env": "NODEJS_INSTALL_DIR" },
+  { "name": "PYTHON",
+    "version": "3.10",
+    "env": "PYTHON_INSTALL_DIR" },
+  { "name": "RUST",
+    "version": "nightly",
+    "env": "RUST_INSTALL_DIR" }
+]}</textarea>
+                        </fieldset>
+                    </div>
+                    <div class="tui-tab-content" id="tab-2-content">
+                        <fieldset class="tui-fieldset">
+                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 226px;">{"databases": [
+  { "name": "POSTGRES",
+    "version": "17",
+    "env": "POSTGRES_URL",
+    "vars": {
+      "POSTGRES_USER": "rest_user",
+      "POSTGRES_PASSWORD": "rest_pass",
+      "POSTGRES_DB": "rest_db",
+      "POSTGRES_PASSWORD_FILE": null
+    },
+    "target_env": [
+      "DATABASE_URL"
+    ]
+  },
+  {
+    "name": "VALKEY",
+    "version": "*",
+    "env": "REDIS_URL",
+    "target_env": [
+      "REDIS_URL",
+      "VALKEY_URL"
+    ]
+  }
+]}</textarea>
+                        </fieldset>
+                    </div>
+                    <div class="tui-tab-content" id="tab-3-content">
+                        <h3>Servers</h3>
+                        Too verbose for HTML!<br>(<em><a href="/docs/example.json">click for full example</a></em>)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr class="white-text">
+
+        <!-- Window textarea -->
+        <div class="info-text">1. /bin/sh script generates /bin/sh and batch scripts;<br>and (optionally) Dockerfiles
+        </div>
+
+        <div class="tui-window">
+            TODO: show tree here
+        </div>
+
+        <hr class="white-text">
+
+        <div class="info-text">2. Run /bin/sh scripts inside or outside of Docker;<br>or .bat scripts on DOS and Windows
+        </div>
+        <hr class="white-text">
+        <div class="info-text">3. Check deployment</div>
+        <div class="tui-screen-800-600 bordered black-255" style="padding: 2px; margin: 0 auto; height: 200px">
+            <div class="red-168 full-width white-text" style="padding: 0 10px;">
+                HEALTHCHECK DASHBOARD
+            </div>
+            <br>
+            <table class="tui-table full-width no-border striped-purple">
+                <thead class="white-255-text tui-border-double orange-168-border" style="margin-bottom: 5px;">
+                <tr class="left-align">
+                    <th>&emsp;SERVER&nbsp;</th>
+                    <th>&emsp;NAME</th>
+                    <th>&emsp;VERSION&emsp;&emsp;&emsp;PROGRESS</th>
+                    <th>STATUS</th>
+                </tr>
+                </thead>
+                <tbody class="tui-border-double orange-168-border">
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>NODEJS</td>
+                    <td>
+                        <span class="green-168-text">lts&emsp;&emsp;&emsp;&emsp;</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress green-255" style="width: 100%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="green-255-text">SUCCESS</td>
+                </tr>
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>PYTHON</td>
+                    <td>
+                        <span class="green-168-text">3.10&emsp;&emsp;&nbsp;</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress green-255" style="width: 100%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="green-255-text">SUCCESS</td>
+                </tr>
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>RUST</td>
+                    <td>
+                        <span class="green-168-text">nightly</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress red-255" style="width: 20%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="red-255-text">FAIL</td>
+                </tr>
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>VALKEY</td>
+                    <td>
+                        <span class="green-168-text">main&emsp;&emsp;&emsp;</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress red-255" style="width: 66%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="red-255-text">FAIL</td>
+                </tr>
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>POSTGRESQL</td>
+                    <td>
+                        <span class="green-168-text">17.3&emsp;&emsp;&nbsp;</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress green-255" style="width: 100%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="green-255-text">SUCCESS</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="red-168 full-width white-text" style="padding: 0px 10px;">
+                LIBSCRIPT 0.0.1
+            </div>
+        </div>
+
+        <hr class="white-text">
+
+        <div class="info-text">4. Eat 🍰</div>
+
+    </div>
+</div>
+
+<!-- Status bar -->
+<div class="tui-statusbar fixed" style="bottom: 0;">
+    <ul>
+        <li><a href="/">VerMan.io &ndash; deploy like it's the 1980s</a></li>
+    </ul>
+</div>
+
+<a class="tui-button red-168 white-255-text fixed add-btn"
+   href="mailto:samuelmarks@gmail.com"
+   alt="Email me"
+>📧</a>
+
+</body>
+
+</html>
