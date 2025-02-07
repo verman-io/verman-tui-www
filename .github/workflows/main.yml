@@ -69,4 +69,6 @@ jobs:
           cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/src' "$DIST"
           mkdir "$DIST"'/assets'
           cp "$GITHUB_WORKSPACE"'/verman-tui-www/src/node_modules/tuicss/dist/'* "$DIST"'/assets'
+          ls -Rla
+          tree -a
           npx angular-cli-ghpages --dir="$DIST" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent
