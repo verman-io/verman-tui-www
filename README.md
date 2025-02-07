@@ -6,6 +6,12 @@ verman-tui-www
 
 All frontends in one! - Welcome to [verMan.io](https://verMan.io)
 
+This combines the frontends at:
+
+  - `/` from this repository
+  - `/docs` from https://github.com/SamuelMarks/libscript (docs for all the `ports' and libscript itself)
+  - `/verman` from https://github.com/verman-io/verman-www (the old homepage)
+
 <hr/>
 
 ## License
