@@ -50,7 +50,6 @@ jobs:
           DIST: 'dist/verman-www'
           TARGET: 'verman-io/verman.github.io'
           CNAME: 'verman.io'
-        working-directory: ./verman-www
         run: |
           MSG="$(git show -s --format='%s' "$GITHUB_SHA")"
           email_author="$(git log -1 --pretty=format:'%an <%ce>')"
