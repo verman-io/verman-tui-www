@@ -62,13 +62,13 @@ jobs:
           git config --global user.name "$author"
           email="${email_author#*<}"; email="${email::-1}"
           git config --global user.email "$email"
-          ng build --configuration production --base-href 'https://'"$CNAME"
-          head -n3 README.md > "$DIST"'/README.md'
+          ng build --configuration production --base-href 'https://'"$CNAME"'/verman'
+          ls -Rla
+          tree -a
+          head -n8 "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' > "$DIST"'/README.md'
           mv "$DIST"'/browser'/* "$DIST"'/verman'
           cp -r "$GITHUB_WORKSPACE"'/libscript/docs' "$DIST"
           cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/src' "$DIST"
           mkdir "$DIST"'/assets'
           cp "$GITHUB_WORKSPACE"'/verman-tui-www/src/node_modules/tuicss/dist/'* "$DIST"'/assets'
-          ls -Rla
-          tree -a
           npx angular-cli-ghpages --dir="$DIST" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent
