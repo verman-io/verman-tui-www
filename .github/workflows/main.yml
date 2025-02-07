@@ -66,6 +66,7 @@ jobs:
           npm ci
           ng build --configuration production --base-href 'https://'"$CNAME"'/verman'
           head -n8 "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' > "$DIST"'/README.md'
+          mkdir "$DIST"'/verman'
           mv "$DIST"'/browser'/* "$DIST"'/verman'
           cp -r "$GITHUB_WORKSPACE"'/libscript/docs' "$DIST"
           cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/src' "$DIST"
