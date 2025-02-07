@@ -36,10 +36,10 @@ jobs:
         env:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
           LIBSCRIPT_ASSETS_DIR: '/assets'
-        run:
-          #curl -OL 'https://github.com/jgm/pandoc/releases/download/3.6.2/pandoc-3.6.2-linux-amd64.tar.gz'
-          #tar xf pandoc-3.6.2-linux-amd64.tar.gz
-          #export PATH="$PATH"':'"$PWD"'/pandoc-3.6.2/bin'
+        run: |
+          # curl -OL 'https://github.com/jgm/pandoc/releases/download/3.6.2/pandoc-3.6.2-linux-amd64.tar.gz'
+          # tar xf pandoc-3.6.2-linux-amd64.tar.gz
+          # export PATH="$PATH"':'"$PWD"'/pandoc-3.6.2/bin'
           sudo apt-get install -y pandoc
           ./generate_html_docs.sh
         working-directory: ./libscript
