@@ -52,17 +52,24 @@ jobs:
           CNAME: 'verman.io'
         working-directory: ./verman-www
         run: |
+          >&2 printf '0\n'
           npm i -g npm
+          >&2 printf '1\n'
           npm i -g @angular/cli typescript angular-cli-ghpages
+          >&2 printf '2\n'
           ng add --skip-confirmation angular-cli-ghpages
+          >&2 printf '3\n'
           npm ci
+          >&2 printf '4\n'
           MSG="$(git show -s --format='%s' "$GITHUB_SHA")"
           email_author="$(git log -1 --pretty=format:'%an <%ce>')"
           author="${email_author% *}"
           git config --global user.name "$author"
           email="${email_author#*<}"; email="${email::-1}"
           git config --global user.email "$email"
+          >&2 printf '5\n'
           ng build --configuration production --base-href 'https://'"$CNAME"'/verman'
+          >&2 printf '6\n'
           ls -Rla
           tree -a
           head -n8 "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' > "$DIST"'/README.md'
@@ -72,3 +79,4 @@ jobs:
           mkdir "$DIST"'/assets'
           cp "$GITHUB_WORKSPACE"'/verman-tui-www/src/node_modules/tuicss/dist/'* "$DIST"'/assets'
           npx angular-cli-ghpages --dir="$DIST" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent
+          >&2 printf '7\n'
