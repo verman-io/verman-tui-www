@@ -58,7 +58,7 @@ jobs:
           git config --global user.name "$author"
           email="${email_author#*<}"; email="${email::-1}"
           git config --global user.email "$email"
-          previous_wd="$(cwd)"
+          previous_wd="$(pwd)"
           
           cd "$GITHUB_WORKSPACE"'/verman-www'
           npm i -g npm
