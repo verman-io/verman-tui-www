@@ -36,7 +36,11 @@ jobs:
         env:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
           LIBSCRIPT_ASSETS_DIR: '/assets'
-        run: ./generate_html_docs.sh
+        run:
+          curl -OL https://github.com/jgm/pandoc/releases/download/3.6.2/pandoc-3.6.2-linux-amd64.tar.gz
+          tar xf pandoc-3.6.2-linux-amd64.tar.gz
+          export PATH="$PATH"':'"$PWD"'/pandoc-3.6.2/bin'
+          ./generate_html_docs.sh
         working-directory: ./libscript
 
       - name: 'Prepare node_modules from this repo'
