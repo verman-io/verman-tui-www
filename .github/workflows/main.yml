@@ -27,29 +27,30 @@ jobs:
         with:
           path: 'verman-tui-www'
 
-      - name: Use Node.js LTS
+      - name: 'Use Node.js LTS'
         uses: actions/setup-node@v4
         with:
           node-version: lts/*
 
-      - name: Prepare docs from libscript
+      - name: 'Prepare docs from libscript'
         env:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
           LIBSCRIPT_ASSETS_DIR: '/assets'
         run: ./generate_html_docs.sh
         working-directory: ./libscript
 
-      - name: Prepare node_modules from this repo
+      - name: 'Prepare node_modules from this repo'
         run: npm ci
         working-directory: ./verman-tui-www
 
-      - name: Prepare and deploy everything
+      - name: 'Prepare and deploy everything'
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           DIST: 'dist/verman-www'
           TARGET: 'verman-io/verman.github.io'
           CNAME: 'verman.io'
+        working-directory: ./verman-www
         run: |
           npm i -g npm
           npm i -g @angular/cli typescript angular-cli-ghpages
