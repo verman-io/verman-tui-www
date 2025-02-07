@@ -10,21 +10,22 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout libscript
-        path: libscript
+      - name: 'Checkout libscript'
         uses: actions/checkout@v4
         with:
-          repository: SamuelMarks/libscript
+          path: 'libscript'
+          repository: 'SamuelMarks/libscript'
 
-      - name: Checkout old verman-www
+      - name: 'Checkout old verman-www'
         uses: actions/checkout@v4
-        path: verman-www
         with:
-          repository: verman-io/verman-www
+          path: 'verman-www'
+          repository: 'verman-io/verman-www'
 
-      - name: Checkout this repo
-        path: verman-tui-www
+      - name: 'Checkout this repo'
         uses: actions/checkout@v4
+        with:
+          path: 'verman-tui-www'
 
       - name: Use Node.js LTS
         uses: actions/setup-node@v4
@@ -38,11 +39,11 @@ jobs:
         run: ./generate_html_docs.sh
         working-directory: ./libscript
 
-      - name: Prepare docs from this repo
+      - name: Prepare node_modules from this repo
         run: npm ci
         working-directory: ./verman-tui-www
 
-      - name: Prepare and deploy
+      - name: Prepare and deploy everything
         env:
           GITHUB_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.CUSTOM_GITHUB_TOKEN }}
@@ -52,7 +53,6 @@ jobs:
         run: |
           npm i -g npm
           npm i -g @angular/cli typescript angular-cli-ghpages
-          cd "$GITHUB_WORKSPACE"'/'
           ng add --skip-confirmation angular-cli-ghpages
           npm ci
           MSG="$(git show -s --format='%s' "$GITHUB_SHA")"
