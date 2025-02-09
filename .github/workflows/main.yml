@@ -68,7 +68,7 @@ jobs:
           ng add --skip-confirmation angular-cli-ghpages
           npm ci
           ng build --configuration production --base-href './verman' --verbose
-          cp -- "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' > "$DIST"'/README.md'
+          cp -- "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' "$DIST"'/README.md'
           mkdir -- "$DIST"'/verman'
           mv -- "$DIST"'/browser'/* "$DIST"'/verman'
           
