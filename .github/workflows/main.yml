@@ -67,8 +67,9 @@ jobs:
           npm i -g @angular/cli typescript angular-cli-ghpages
           ng add --skip-confirmation angular-cli-ghpages
           npm ci
-          ng build --configuration production --base-href './verman' --verbose
+          ng build --configuration production --base-href '/verman' --verbose
           cp -- "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' "$DIST"'/README.md'
+          sed -i -e 's/verman-tui-www/verman.github.io/' -e 's|this repository|https://github.com/verman-io/verman-tui-www|' "$DIST"'/README.md'
           mkdir -- "$DIST"'/verman'
           mv -- "$DIST"'/browser'/* "$DIST"'/verman'
           
