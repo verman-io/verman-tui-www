@@ -37,10 +37,7 @@ jobs:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
           LIBSCRIPT_ASSETS_DIR: '/assets'
         run: |
-          # curl -OL 'https://github.com/jgm/pandoc/releases/download/3.6.2/pandoc-3.6.2-linux-amd64.tar.gz'
-          # tar xf pandoc-3.6.2-linux-amd64.tar.gz
-          # export PATH="$PATH"':'"$PWD"'/pandoc-3.6.2/bin'
-          sudo apt-get install -y pandoc
+          sudo apt-get install -y pandoc libarchive-zip-perl
           ./generate_html_docs.sh
         working-directory: ./libscript
 
@@ -64,6 +61,7 @@ jobs:
           email="${email_author#*<}"; email="${email::-1}"
           git config --global user.email "$email"
           
+          # /verman
           cd "$GITHUB_WORKSPACE"'/verman-www'
           npm i -g npm
           npm i -g @angular/cli typescript angular-cli-ghpages
@@ -73,9 +71,15 @@ jobs:
           head -n8 "$GITHUB_WORKSPACE"'/verman-tui-www/README.md' > "$DIST"'/README.md'
           mkdir "$DIST"'/verman'
           mv "$DIST"'/browser'/* "$DIST"'/verman'
+          
+          # /docs
           cp -r "$GITHUB_WORKSPACE"'/libscript/docs' "$DIST"
+
+          # /
           cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/src/'* "$DIST"
           mkdir "$DIST"'/assets'
           cp -r "$GITHUB_WORKSPACE"'/verman-tui-www/node_modules/tuicss/dist/'* "$DIST"'/assets'
           cp "$GITHUB_WORKSPACE"'/verman-tui-www/src/'*.css "$DIST"'/assets'
+          
+          # *
           npx angular-cli-ghpages --dir="$DIST" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent

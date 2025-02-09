@@ -5,9 +5,28 @@
     <meta charset="UTF-8">
     <title>verMan.io &ndash; faster deploys: natively</title>
     <!-- https://github.com/vinibiavatti1/TuiCss is MIT licensed and used for the theme -->
-    <script src="/assets/tuicss.min.js" type="application/javascript"></script>
-    <link rel="stylesheet" href="/assets/tuicss.min.css" type="text/css">
-    <link rel="stylesheet" href="./styles.css" type="text/css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="../assets/tuicss.min.css" type="text/css">
+    <link rel="stylesheet" href="../assets/styles.css" type="text/css">
+    <script>
+        const copyURI= (evt) => {
+            evt.preventDefault();
+            navigator.clipboard.writeText("https://github.com/SamuelMarks/libscript").then(() => {
+                Toastify({
+                    text: "Copied GitHub link to clipboard",
+                    className: "info",
+                    offset: {
+                        y: 12
+                    },
+                    style: {
+                        background: "#0000a8",
+                    }
+                }).showToast();
+            }, () => {
+                /* clipboard write failed */
+            });
+        }
+    </script>
 </head>
 
 <body class="tui-bg-blue-black relative">
@@ -15,21 +34,29 @@
 <nav class="tui-sidenav absolute">
     <ul>
         <li>
-            <a href="#!">
-                <span class="red-168-text">P</span>rofile
-                <span class="tui-shortcut">ctrl+p</span>
+            <a href="/docs/latest/README.html">
+                <span class="red-168-text">R</span>EADME
             </a>
         </li>
         <li>
-            <a href="#!">
-                <span class="red-168-text">S</span>earch
-                <span class="tui-shortcut">ctrl+s</span>
+            <a href="/docs/latest/WHY.html">
+                <span class="red-168-text">W</span>HY
+            </a>
+        </li>
+        <hr>
+        <li>
+            <a href="/docs/latest/_lib/_toolchain/README.html">
+                <span class="red-168-text">T</span>oolchains
             </a>
         </li>
         <li>
-            <a href="#!">
-                S<span class="red-168-text">t</span>ory
-                <span class="tui-shortcut">ctrl+t</span>
+            <a href="/docs/latest/_lib/_storage/README.html">
+                <span class="red-168-text">D</span>atabases
+            </a>
+        </li>
+        <li>
+            <a href="/docs/latest/_lib/_server/README.html">
+                <span class="red-168-text">S</span>ervers
             </a>
         </li>
     </ul>
@@ -86,12 +113,12 @@
             <div class="tui-dropdown-content">
                 <ul>
                     <li>
-                        <a href="#!">
+                        <a href="/docs/latest/TEAM.html">
                             T<span class="red-168-text">e</span>am
                         </a>
                     </li>
                     <li>
-                        <a href="#!">
+                        <a href="/docs/latest/WHY.html">
                             W<span class="red-168-text">h</span>y
                             <span class="tui-shortcut">F4</span>
                         </a>
@@ -157,8 +184,8 @@
                         Servers<br>
                     </fieldset>
                 </div>
-                <button class="tui-button white-255-text">more...</button>
-                <button class="tui-button purple-168 white-255-text">share</button>
+                <a class="tui-button white-255-text" href="https://github.com/SamuelMarks/libscript">GitHub</a>
+                <button class="tui-button purple-168 white-255-text" onclick="copyURI(event)">share</button>
             </div>
         </div>
 
@@ -178,7 +205,7 @@
                 <div>
                     <div class="tui-tab-content" id="tab-1-content">
                         <fieldset class="tui-fieldset">
-                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 226px;">{"toolchains": [
+                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 228px;">{"toolchains": [
   { "name": "NODEJS",
     "version": "lts",
     "env": "NODEJS_INSTALL_DIR" },
@@ -193,7 +220,7 @@
                     </div>
                     <div class="tui-tab-content" id="tab-2-content">
                         <fieldset class="tui-fieldset">
-                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 226px;">{"databases": [
+                            <textarea class="tui-textarea" style="color: black; width: 369px; height: 228px;">{"databases": [
   { "name": "POSTGRES",
     "version": "17",
     "env": "POSTGRES_URL",
@@ -233,8 +260,24 @@
         <div class="info-text">1. /bin/sh script generates /bin/sh and batch scripts;<br>and (optionally) Dockerfiles
         </div>
 
-        <div class="tui-window">
-            TODO: show tree here
+        <div class="tui-window" style="padding: 0 20px;">
+<pre>
+.
+|-- _lib
+|   `-- …
+|-- app
+|   `-- …
+|-- dockerfiles
+|   `-- …
+|-- env.cmd
+|-- env.sh
+|-- false_env.cmd
+|-- false_env.sh
+|-- install_gen.cmd
+|-- install_gen.sh
+|-- install_parallel_gen.sh
+`-- prelude.sh
+</pre>
         </div>
 
         <hr class="white-text">
@@ -243,13 +286,13 @@
         </div>
         <hr class="white-text">
         <div class="info-text">3. Check deployment</div>
-        <div class="tui-screen-800-600 bordered black-255" style="padding: 2px; margin: 0 auto; height: 200px">
+        <div class="tui-screen-800-600 bordered black-255" style="padding: 2px; margin: 0 auto; height: 252px">
             <div class="red-168 full-width white-text" style="padding: 0 10px;">
                 HEALTHCHECK DASHBOARD
             </div>
             <br>
             <table class="tui-table full-width no-border striped-purple">
-                <thead class="white-255-text tui-border-double orange-168-border" style="margin-bottom: 5px;">
+                <thead class="white-255-text tui-border-double orange-168-border" style="margin-bottom: 8px;">
                 <tr class="left-align">
                     <th>&emsp;SERVER&nbsp;</th>
                     <th>&emsp;NAME</th>
@@ -323,10 +366,23 @@
                     </td>
                     <td class="green-255-text">SUCCESS</td>
                 </tr>
+                <tr>
+                    <td class="cyan-168-text">127.0.0.1</td>
+                    <td>NGINX</td>
+                    <td>
+                        <span class="green-168-text">17.3&emsp;&emsp;&nbsp;</span>
+                        [
+                        <div class="tui-progress-bar inline-block tui-bg-red-black" style="width: 300px;">
+                            <span class="tui-progress green-255" style="width: 100%"></span>
+                        </div>
+                        ]
+                    </td>
+                    <td class="green-255-text">SUCCESS</td>
+                </tr>
                 </tbody>
             </table>
 
-            <div class="red-168 full-width white-text" style="padding: 0px 10px;">
+            <div class="red-168 full-width white-text" style="padding: 0 10px;">
                 LIBSCRIPT 0.0.1
             </div>
         </div>
@@ -349,6 +405,8 @@
    href="mailto:samuelmarks@gmail.com"
    alt="Email me"
 >📧</a>
+<script type="application/javascript" src="../assets/tuicss.min.js"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 </body>
 
