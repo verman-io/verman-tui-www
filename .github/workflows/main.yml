@@ -72,7 +72,7 @@ jobs:
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/README.md' "${DIST}"'/README.md'
           sed -i -e 's/verman-tui-www/verman.github.io/' -e 's|this repository|https://github.com/verman-io/verman-tui-www|' "${DIST}"'/README.md'
           mkdir -- "${DIST}"'/verman'
-          cp -r "${GITHUB_WORKSPACE}"'/verman-www/dist/verman-www/browser/' "${DIST}"'/verman'
+          cp -r -- "${GITHUB_WORKSPACE}"'/verman-www/dist/verman-www/browser/'* "${DIST}"'/verman'
           rsync -a -r -- "${GITHUB_WORKSPACE}"'/verman-www/dist/verman-www/browser/assets/' "${DIST}"'/assets'
           cp -- 'dist/verman-www/browser/'*.css "${DIST}"
           
