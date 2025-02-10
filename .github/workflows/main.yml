@@ -74,7 +74,7 @@ jobs:
           mkdir -- "${DIST}"'/verman'
           cp -r "${GITHUB_WORKSPACE}"'/verman-www/dist/verman-www/browser/' "${DIST}"'/verman'
           rsync -a -r -- "${GITHUB_WORKSPACE}"'/verman-www/dist/verman-www/browser/assets/' "${DIST}"'/assets'
-          cp -- "${DIST}"'/verman/'*.css "${DIST}"
+          cp -- 'dist/verman-www/browser/'*.css "${DIST}"
           
           # /docs
           cp -r -- "${GITHUB_WORKSPACE}"'/libscript/docs' "${DIST}"
