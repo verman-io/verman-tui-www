@@ -34,3 +34,7 @@
 a:hover {
     text-decoration: underline !important;
 }
+
+small {
+    font-size: x-small;
+}

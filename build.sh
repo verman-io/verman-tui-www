@@ -38,14 +38,14 @@ export LIBSCRIPT_ASSETS_DIR='/assets'
 
 # /verman
 if ! [ -d "${ABOVE_ROOT}"'/verman-www' ]; then
-   git clone --depth=1 --single-branch https://github.com/verman-io/verman-www
+   git clone --depth=1 --single-branch https://github.com/verman-io/verman-www "${ABOVE_ROOT}"'/verman-www'
 fi
 cd -- "${ABOVE_ROOT}"'/verman-www'
 ng build --configuration production --base-href '/verman' --deploy-url '/verman/' --verbose
 cp -- "${ABOVE_ROOT}"'/verman-tui-www/README.md' "${DIST}"'/README.md'
-ls "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser'
+ls -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser'
 [ -d "${DIST}"'/verman' ] || mkdir -- "${DIST}"'/verman'
-cp -r "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser/' "${DIST}"'/verman'
+cp -r -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser/' "${DIST}"'/verman'
 rsync -a -r -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser/assets/' "${DIST}"'/assets'
 cp -- "${DIST}"'/verman/'*.css "${DIST}"
 
