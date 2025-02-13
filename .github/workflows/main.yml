@@ -36,8 +36,11 @@ jobs:
         env:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
           LIBSCRIPT_ASSETS_DIR: '/assets'
+#          LIBSCRIPT_DOCS_DIR: '${GITHUB_WORKSPACE}/verman-tui-www/dist/docs/latest'
+#          LIBSCRIPT_DOCS_PREFIX: '${GITHUB_WORKSPACE}/verman-www/dist/verman-www'
         run: |
           sudo apt-get install -y pandoc libarchive-zip-perl rsync
+          npm install -g wetzel
           ./generate_html_docs.sh
         working-directory: ./libscript
 

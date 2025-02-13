@@ -32,7 +32,8 @@ if ! [ -d "${ABOVE_ROOT}"'/libscript' ]; then
    git clone --depth=1 --single-branch https://github.com/SamuelMarks/libscript "${ABOVE_ROOT}"'/libscript'
 fi
 cd -- "${ABOVE_ROOT}"'/libscript'
-export LIBSCRIPT_DOCS_DIR='./docs/latest'
+export LIBSCRIPT_DOCS_PREFIX="${DIST}"
+export LIBSCRIPT_DOCS_DIR="${DIST}"'/docs/latest'
 export LIBSCRIPT_ASSETS_DIR='/assets'
 ./generate_html_docs.sh
 
@@ -53,10 +54,6 @@ cp -- "${DIST}"'/verman/'*.css "${DIST}"
 cd -- "${ABOVE_ROOT}"'/verman-tui-www'
 npm ci
 
-# /docs
-cp -r -- "${ABOVE_ROOT}"'/libscript/docs' "${DIST}"
-
-# /
 cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
 rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
 cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
