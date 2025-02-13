@@ -2,6 +2,7 @@
   "name": "verman-tui-www",
   "version": "0.0.1",
   "description": "All frontends in one! - Welcome to verMan.io",
+  "homepage": "https://verman.io",
   "license": "Apache-2.0 OR MIT OR CC0",
   "author": "Samuel Marks <807580+SamuelMarks@users.noreply.github.com>",
   "type": "commonjs",
