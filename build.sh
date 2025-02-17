@@ -57,6 +57,7 @@ npm ci
 cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
 rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
 cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
+cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
 
 # serve
 python3 -m http.server "${PORT:-8005}" --directory "${DIST}"
