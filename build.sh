@@ -34,7 +34,7 @@ fi
 cd -- "${ABOVE_ROOT}"'/libscript'
 export LIBSCRIPT_DOCS_PREFIX="${DIST}"
 export LIBSCRIPT_DOCS_DIR="${DIST}"'/docs/latest'
-export LIBSCRIPT_ASSETS_DIR='/assets'
+export LIBSCRIPT_ASSETS_DIR="${DIST}"'/assets'
 ./generate_html_docs.sh
 
 # /verman
@@ -55,9 +55,13 @@ cd -- "${ABOVE_ROOT}"'/verman-tui-www'
 npm ci
 
 cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
-rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
-cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
-cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
+for d in "${DIST}"'/assets' "${ABOVE_ROOT}"'/verman-tui-www/assets'; do
+  rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${d}"
+  cp -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/@widgetjs/tree/dist/tree.min.js'* "${d}"
+  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${d}"
+  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.js "${d}"
+  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${d}"
+done
 
 # serve
 python3 -m http.server "${PORT:-8005}" --directory "${DIST}"

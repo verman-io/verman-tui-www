@@ -35,7 +35,7 @@ jobs:
       - name: 'Prepare docs from libscript'
         env:
           LIBSCRIPT_DOCS_DIR: './docs/latest'
-          LIBSCRIPT_ASSETS_DIR: '/assets'
+          LIBSCRIPT_ASSETS_DIR: './assets'
 #          LIBSCRIPT_DOCS_DIR: '${GITHUB_WORKSPACE}/verman-tui-www/dist/docs/latest'
 #          LIBSCRIPT_DOCS_PREFIX: '${GITHUB_WORKSPACE}/verman-www/dist/verman-www'
         run: |
@@ -85,8 +85,10 @@ jobs:
           # /
           cp -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'* "${DIST}"
           rsync -a -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
+          cp -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/@widgetjs/tree/dist/tree.min.js'* "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
+          cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.js "${DIST}"'/assets'
           
           # *
           npx angular-cli-ghpages --dir="${DIST}" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent

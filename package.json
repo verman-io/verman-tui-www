@@ -11,6 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@widgetjs/tree": "^1.8.3",
     "tuicss": "^2.1.2"
   }
 }
