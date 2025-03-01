@@ -89,6 +89,7 @@ jobs:
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.js "${DIST}"'/assets'
+          rsync -a -r -- "${GITHUB_WORKSPACE}"'/libscript/assets/'* "${DIST}"'/assets'
           
           # *
           npx angular-cli-ghpages --dir="${DIST}" --cname="$CNAME" --repo='https://'"$GITHUB_TOKEN"'@github.com/'"$TARGET" --branch='master' --message="$MSG" --name="$name" --email="$email" --no-silent
