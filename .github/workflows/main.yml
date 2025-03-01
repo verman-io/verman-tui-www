@@ -85,7 +85,7 @@ jobs:
           # /
           cp -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'* "${DIST}"
           rsync -a -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
-          cp -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/@widgetjs/tree/dist/tree.min.js'* "${DIST}"'/assets'
+          cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/node_modules/@widgetjs/tree/dist/tree.min.js'* "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.js "${DIST}"'/assets'
