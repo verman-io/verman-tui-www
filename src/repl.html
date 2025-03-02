@@ -1,15 +1,141 @@
-<html>
+<!DOCTYPE html>
+<html lang="en" class="tui-bg-blue-black">
 <head>
-    <meta charset="utf-8" />
-    <title>Libcloud REPL example</title>
+    <meta charset="utf-8"/>
+    <title>verMan.io &ndash; Libcloud REPL example</title>
+    <meta itemprop="name" content="verMan.io &ndash; faster deploys: natively">
+    <meta name="description" content="cross-platform open-source alternative to Hashicorp Packer">
+    <meta name="keywords" content="docker packer hashicorp shell libscript verman package-manager">
+    <link rel="author" href="https://github.com/SamuelMarks"/>
+    <link rel="canonical" href="https://verMan.io/repl.html"/>
+    <!-- https://github.com/vinibiavatti1/TuiCss is MIT licensed and used for the theme -->
+    <link rel="stylesheet" href="../assets/tuicss.min.css" type="text/css">
+    <link rel="stylesheet" href="../assets/styles.css" type="text/css">
 </head>
 <body>
+<!-- Navbar -->
+<nav class="tui-nav">
+    <span class="tui-datetime" data-format="h:m:s a"></span>
+    <ul>
+        <li class="tui-sidenav-button red-168-text">≡</li>
+        <li class="tui-dropdown hide-on-med-and-down">
+            <span class="red-168-text">D</span>ocumentation
+            <div class="tui-dropdown-content">
+                <ul>
+                    <li>
+                        <a href="/docs/latest/SYNTAX.md">
+                            Synta<span class="red-168-text">x</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/verman-io/verman-presentations/releases/download/init/packaging-solutions.pdf">
+                            <span class="red-168-text">W</span>hitepaper<small> (draft)</small>
+                        </a>
+                    </li>
+                    <div class="tui-black-divider"></div>
+                    <li>
+                        <a href="/verman">
+                            <span class="red-168-text">V</span>erMan <small>(version managers)</small>
+                        </a>
+                    </li>
+                    <div class="tui-black-divider"></div>
+                    <li class="tui-dropdown block">
+                        <span class="right">►</span>
+                        <span class="red-168-text">P</span>orts
+                        <div class="tui-dropdown-content">
+                            <ul>
+                                <li>
+                                    <a href="/docs/latest/_lib/_toolchain/README.html">
+                                        <span class="red-168-text">T</span>oolchains
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/docs/latest/_lib/_storage/README.html">
+                                        <span class="red-168-text">D</span>atabases
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/docs/latest/_lib/_server/README.html">
+                                        <span class="red-168-text">S</span>ervers
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="tui-dropdown hide-on-med-and-down">
+            <span class="red-168-text">A</span>bout
+            <div class="tui-dropdown-content">
+                <ul>
+                    <li>
+                        <a href="/docs/latest/TEAM.html">
+                            T<span class="red-168-text">e</span>am
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/docs/latest/WHY.html">
+                            W<span class="red-168-text">h</span>y
+                            <span class="tui-shortcut">F4</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</nav>
+
+<!-- Edit panel -->
+<div class="content container">
+    <div class="row">
+        <div class="col s12 m12 l12 white-text center">
+            <h3>VerMan.io</h3>
+            <hr>
+            Deploy like it's the 1980s 🚀
+        </div>
+    </div>
+    <div class="row" style="color: #fff">
+        <em>Checkout the browser network tab and console for logs.</em>
+    </div>
+    <div class="tui-screen-800-600 bordered black-255"
+         style="padding: 2px; margin: 0 auto; height: 252px; color: #fff">
+        <pre>// Open the console and write:
+localStorage.setItem("AWS_ACCESS_ID", "your id here");
+localStorage.setItem("AWS_SECRET_KEY", "your key here");
+localStorage.setItem("AWS_REGION", "your region here");
+// then refresh the page</pre>
+    </div>
+</div>
+
+<!-- Status bar -->
+<div class="tui-statusbar fixed" style="bottom: 0;">
+    <ul>
+        <li><a href="/">VerMan.io &ndash; deploy like it's the 1980s</a></li>
+    </ul>
+</div>
+
+<a class="tui-button red-168 white-255-text fixed add-btn"
+   href="mailto:samuel@offscale.io&subject=verman"
+   aria-label="Email me"
+>📧</a>
+
+<script type="application/javascript" src="../assets/tuicss.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.js"></script>
 <script type="text/javascript">
     async function main() {
-        let pyodide = await loadPyodide();
+        let pyodide = await loadPyodide({
+            "options": {
+                "env": {
+                    "AWS_ACCESS_ID": localStorage.getItem("AWS_ACCESS_ID"),
+                    "AWS_SECRET_KEY": localStorage.getItem("AWS_SECRET_KEY"),
+                    "AWS_REGION": localStorage.getItem("AWS_REGION")
+                }
+            }
+        });
         await pyodide.loadPackage("micropip");
         const micropip = pyodide.pyimport("micropip");
+        await micropip.install("ssl");
         await micropip.install("apache-libcloud");
         await pyodide.runPython(`
         import os
@@ -29,6 +155,7 @@
         pprint.pprint(sizes, indent=4)
       `);
     }
+
     main();
 </script>
 </body>
