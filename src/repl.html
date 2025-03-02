@@ -1,0 +1,35 @@
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Libcloud REPL example</title>
+</head>
+<body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.js"></script>
+<script type="text/javascript">
+    async function main() {
+        let pyodide = await loadPyodide();
+        await pyodide.loadPackage("micropip");
+        const micropip = pyodide.pyimport("micropip");
+        await micropip.install("apache-libcloud");
+        await pyodide.runPython(`
+        import os
+        import pprint
+
+        import libcloud
+        from libcloud.compute.types import Provider
+        from libcloud.compute.providers import get_driver
+
+        print(libcloud.__version__)
+
+        cls = get_driver(Provider.EC2)
+        driver = cls(os.environ["AWS_ACCESS_ID"], os.environ["AWS_SECRET_KEY"],
+                     region=os.environ["AWS_REGION"])
+
+        sizes = driver.list_sizes()
+        pprint.pprint(sizes, indent=4)
+      `);
+    }
+    main();
+</script>
+</body>
+</html>
