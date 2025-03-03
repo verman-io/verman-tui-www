@@ -95,16 +95,24 @@
             Deploy like it's the 1980s 🚀
         </div>
     </div>
-    <div class="row" style="color: #fff">
+    <div class="row text-white">
         <em>Checkout the browser network tab and console for logs.</em>
     </div>
-    <div class="tui-screen-800-600 bordered black-255"
-         style="padding: 2px; margin: 0 auto; height: 252px; color: #fff">
-        <pre>// Open the console and write:
-localStorage.setItem("AWS_ACCESS_ID", "your id here");
-localStorage.setItem("AWS_SECRET_KEY", "your key here");
-localStorage.setItem("AWS_REGION", "your region here");
-// then refresh the page</pre>
+
+    <div class="tui-window" style="width: 100%" id="outside-provider-form">
+        <fieldset class="tui-fieldset" style="width: 100%">
+            <legend class="white-255-text center">Set auth (saves to LocalStorage)</legend>
+            <div class="flex">
+                <span class="flex-item"><label class="yellow-255-text" for="providers-select">P</label>rovider...................:</span>
+                <select id="providers-select" class="tui-input flex-item">
+                    <option value="">--Choose a provider--</option>
+                </select><br>
+            </div>
+        </fieldset>
+    </div>
+
+    <div class="tui-window" style="width: 100%">
+        <button class="tui-button orange-168 white-text" style="margin: 15px" onclick="main()">Run deploy</button>
     </div>
 </div>
 
@@ -120,43 +128,8 @@ localStorage.setItem("AWS_REGION", "your region here");
    aria-label="Email me"
 >📧</a>
 
-<script type="application/javascript" src="../assets/tuicss.min.js"></script>
+<script type="text/javascript" src="../assets/tuicss.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/pyodide/v0.27.3/full/pyodide.js"></script>
-<script type="text/javascript">
-    async function main() {
-        let pyodide = await loadPyodide({
-            "options": {
-                "env": {
-                    "AWS_ACCESS_ID": localStorage.getItem("AWS_ACCESS_ID"),
-                    "AWS_SECRET_KEY": localStorage.getItem("AWS_SECRET_KEY"),
-                    "AWS_REGION": localStorage.getItem("AWS_REGION")
-                }
-            }
-        });
-        await pyodide.loadPackage("micropip");
-        const micropip = pyodide.pyimport("micropip");
-        await micropip.install("ssl");
-        await micropip.install("apache-libcloud");
-        await pyodide.runPython(`
-        import os
-        import pprint
-
-        import libcloud
-        from libcloud.compute.types import Provider
-        from libcloud.compute.providers import get_driver
-
-        print(libcloud.__version__)
-
-        cls = get_driver(Provider.EC2)
-        driver = cls(os.environ["AWS_ACCESS_ID"], os.environ["AWS_SECRET_KEY"],
-                     region=os.environ["AWS_REGION"])
-
-        sizes = driver.list_sizes()
-        pprint.pprint(sizes, indent=4)
-      `);
-    }
-
-    main();
-</script>
+<script type="text/javascript" src="../assets/repl_helper.js"></script>
 </body>
 </html>

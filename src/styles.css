@@ -38,3 +38,20 @@ a:hover {
 small {
     font-size: x-small;
 }
+
+.text-white {
+    color: #fff;
+}
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.flex-item {
+    flex-grow: 1;
+    flex-shrink: 1;
+    /*width: calc(100% / 2);*/
+    width: 100%;
+    transition: all 0.4s ease;
+}
