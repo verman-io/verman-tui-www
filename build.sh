@@ -55,7 +55,9 @@ npm ci
 
 cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
 for d in "${DIST}"'/assets' "${ABOVE_ROOT}"'/verman-tui-www/assets'; do
-  rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${d}"
+  if [ -d "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist' ]; then
+    rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${d}"
+  fi
   cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${d}"
   cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.js "${d}"
   cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${d}"
