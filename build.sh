@@ -47,20 +47,26 @@ ls -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser'
 [ -d "${DIST}"'/verman' ] || mkdir -- "${DIST}"'/verman'
 cp -r -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser/' "${DIST}"'/verman'
 rsync -a -r -- "${ABOVE_ROOT}"'/verman-www/dist/verman-www/browser/assets/' "${DIST}"'/assets'
-cp -- "${DIST}"'/verman/'*.css "${DIST}"
+if [ ! "${ABOVE_ROOT}"'/verman' = "${DIST}" ]; then
+  cp -- "${DIST}"'/verman/'*.css "${DIST}"
+fi
 
 # /
 cd -- "${ABOVE_ROOT}"'/verman-tui-www'
 npm ci
 
-cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
+if [ ! "${ABOVE_ROOT}"'/verman-tui-www/src' = "${DIST}" ]; then
+  cp -r -- "${ABOVE_ROOT}"'/verman-tui-www/src/'* "${DIST}"
+fi
 for d in "${DIST}"'/assets' "${ABOVE_ROOT}"'/verman-tui-www/assets'; do
   if [ -d "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist' ]; then
     rsync -a -r -- "${ABOVE_ROOT}"'/verman-tui-www/node_modules/tuicss/dist/'* "${d}"
   fi
-  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${d}"
-  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.js "${d}"
-  cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${d}"
+  if [ ! "${ABOVE_ROOT}"'/verman-tui-www/src' = "${d}" ]; then
+    cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.css "${d}"
+    cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.js "${d}"
+    cp -- "${ABOVE_ROOT}"'/verman-tui-www/src/'*.png "${d}"
+  fi
 done
 
 # serve
