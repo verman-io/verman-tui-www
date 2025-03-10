@@ -83,7 +83,9 @@ jobs:
           cp -r -- "${GITHUB_WORKSPACE}"'/libscript/docs' "${DIST}"
           
           # /
-          cp -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'* "${DIST}"
+          if [ ! "${GITHUB_WORKSPACE}"'/verman-tui-www/src' = "${DIST}" ]; then
+            cp -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'* "${DIST}"
+          fi
           rsync -a -r -- "${GITHUB_WORKSPACE}"'/verman-tui-www/node_modules/tuicss/dist/'* "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.css "${DIST}"'/assets'
           cp -- "${GITHUB_WORKSPACE}"'/verman-tui-www/src/'*.png "${DIST}"'/assets'
